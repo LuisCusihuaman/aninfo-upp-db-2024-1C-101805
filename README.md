@@ -5,6 +5,7 @@ The PSA database, seeding it with fake data using Gorm and Faker in Go, and runn
 ## 🌟 Features
 
 - **Database Setup**: Instructions to set up a MySQL database using Docker.
+- **Database modeling with Gorm**: Define the database schema using Go structs and Gorm tags.
 - **Database Seeding**: Seed the database with initial and related data using Go, Gorm, and Faker.
   ![docs.png](docs.png)
 
@@ -12,67 +13,79 @@ The PSA database, seeding it with fake data using Gorm and Faker in Go, and runn
 
 To set up the PSA database on your local environment, follow these steps:
 
-1. **Run MySQL Database in Docker**:
+1. **Clone the Repository**:
 
    ```bash
-   docker run --name=db-psa \
-   -p 3306:3306 \
-   -v mysql-psa:/var/lib/mysql \
-   -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
-   -e MYSQL_DATABASE=psa \
-   -d mysql:8.0.36 \
-   --entrypoint "/usr/local/bin/docker-entrypoint.sh" \
-   mysql:8.0.36 psa.db
+   git clone https://github.com/LuisCusihuaman/aninfo-psa-db-2024-1C-101805
+   cd aninfo-psa-db-2024-1C-101805
    ```
 
-2. **Clone the Repository**:
+2. **Build and Run with Docker Compose**:
+
+   Ensure you have Docker and Docker Compose installed. Then, run the following command to build and start the services:
 
    ```bash
-   git clone https://github.com/tribu-a-2024-1c/psa-database-seeder
-   cd psa-database-seeder
+   docker compose up --build
    ```
 
-3. **Install Dependencies**:
+3. **Stop and Remove Containers and Volumes**:
 
-   Ensure you have Go installed. Then, install the necessary Go packages:
+   When you need to stop and clean up the setup, use the following command:
 
    ```bash
-   go get -u gorm.io/gorm
-   go get -u gorm.io/driver/mysql
-   go get -u github.com/bxcodec/faker/v3
+   docker compose down -v
    ```
 
-4. **Database Seeding**:
+## 📖 Database Operations
 
-   The Go file `main.go` is included in the repository with the following content to seed the database:
+After the database is up and running, you can connect to the MySQL service to perform operations like showing tables and
+describing table structures.
 
-   ```go
-   package main
-
-   func main() {
-       dsn := "root:@tcp(127.0.0.1:3306)/psa?charset=utf8mb4&parseTime=True&loc=Local"
-       db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-           NamingStrategy: schema.NamingStrategy{
-               SingularTable: true,
-           },
-       })
-       fake := faker.New()
-       rand.New(rand.NewSource(time.Now().UnixNano()))
-	   ...
-       seedInitialTables(db, fake, primaryKeys, usedIntIDs)
-       seedRelatedTables(db, fake, primaryKeys, usedIntIDs)
-
-   ```
-
-5. **Run the Seeder**:
-
-   Execute the Go file to seed the database:
+1. **Connect to the Database**:
 
    ```bash
-   go run main.go
+   docker compose exec db mysql -u root
    ```
+
+   When prompted, just press Enter as the password is empty.
+
+2. **Show Tables**:
+
+   Once connected to the MySQL shell, use the following command to show all tables in the `psa` database:
+
+   ```sql
+   USE psa;
+   SHOW TABLES;
+   ```
+
+3. **Describe `tbl_alumno` Table**:
+
+   Use the following command to describe the structure of the `tbl_alumno` table:
+
+   ```sql
+   DESCRIBE tbl_alumno;
+   ```
+   
+```markdown
+   mysql> DESCRIBE tbl_alumno;
+   +---------------------+--------------+------+-----+---------+-------+
+   | Field               | Type         | Null | Key | Default | Extra |
+   +---------------------+--------------+------+-----+---------+-------+
+   | numero_de_matricula | varchar(255) | NO   | PRI | NULL    |       |
+   | dni                 | varchar(255) | YES  |     | NULL    |       |
+   | apellido            | varchar(255) | YES  |     | NULL    |       |
+   | nombre              | varchar(255) | YES  |     | NULL    |       |
+   | direccion           | varchar(255) | YES  |     | NULL    |       |
+   | telefono            | varchar(255) | YES  |     | NULL    |       |
+   | fecha_de_nacimiento | date         | YES  |     | NULL    |       |
+   | fecha_de_ingreso    | date         | YES  |     | NULL    |       |
+   | fecha_de_egreso     | date         | YES  |     | NULL    |       |
+   +---------------------+--------------+------+-----+---------+-------+
+   9 rows in set (0.01 sec)
+```
 
 ## 🤝 Contributors
 
-Contributions are welcome! Feel free to submit a pull request or open an issue for any improvements or bug fixes.
+Contributions are welcome!
 
+Feel free to submit a pull request or open an issue for any improvements or bug fixes.
