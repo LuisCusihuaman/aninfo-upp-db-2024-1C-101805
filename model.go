@@ -91,9 +91,9 @@ type TblCuatrimestre struct {
 
 // TblCuota [...]
 type TblCuota struct {
-	IDentificadorCuota   int       `gorm:"primaryKey;column:identificador_cuota"`
-	AñoYMesDeVencimiento time.Time `gorm:"column:año_y_mes_de_vencimiento"`
-	Arancel              float64   `gorm:"column:arancel"`
+	IDentificadorCuota    int       `gorm:"primaryKey;column:identificador_cuota"`
+	AnioYMesDeVencimiento time.Time `gorm:"column:anio_y_mes_de_vencimiento"`
+	Arancel               float64   `gorm:"column:arancel"`
 }
 
 // TblCurso [...]

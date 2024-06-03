@@ -106,7 +106,7 @@ CREATE TABLE `tbl_item_factura` (
 
 CREATE TABLE `tbl_cuota` (
                              `identificador_cuota` int PRIMARY KEY,
-                             `año_y_mes_de_vencimiento` date,
+                             `anio_y_mes_de_vencimiento` date,
                              `arancel` decimal
 );
 

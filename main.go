@@ -199,9 +199,9 @@ func seedInitialTables(db *gorm.DB, fake faker.Faker, primaryKeys map[string][]s
 	for i := 0; i < 10; i++ {
 		id := generateUniqueIntID(usedIntIDs["TblCuota"])
 		cuota := TblCuota{
-			IDentificadorCuota:   id,
-			AñoYMesDeVencimiento: fake.Time().Time(time.Now().AddDate(0, 1, 0)),
-			Arancel:              fake.Float64(2, 100, 1000),
+			IDentificadorCuota:    id,
+			AnioYMesDeVencimiento: fake.Time().Time(time.Now().AddDate(0, 1, 0)),
+			Arancel:               fake.Float64(2, 100, 1000),
 		}
 		db.Create(&cuota)
 		primaryKeys["TblCuota"] = append(primaryKeys["TblCuota"], strconv.Itoa(id))
