@@ -1,6 +1,6 @@
-# PSA Database Seeder and Setup
+# UPP Database Seeder and Setup
 
-The PSA database, seeding it with fake data using Gorm and Faker in Go, and running it in a Docker container.
+The UPP database, seeding it with fake data using Gorm and Faker in Go, and running it in a Docker container.
 
 ## 🌟 Features
 
@@ -11,13 +11,13 @@ The PSA database, seeding it with fake data using Gorm and Faker in Go, and runn
 
 ## 🛠️ Installation
 
-To set up the PSA database on your local environment, follow these steps:
+To set up the UPP database on your local environment, follow these steps:
 
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/LuisCusihuaman/aninfo-psa-db-2024-1C-101805
-   cd aninfo-psa-db-2024-1C-101805
+   git clone https://github.com/LuisCusihuaman/aninfo-upp-db-2024-1C-101805
+   cd aninfo-UPP-db-2024-1C-101805
    ```
 
 2. **Build and Run with Docker Compose**:
@@ -51,10 +51,10 @@ describing table structures.
 
 2. **Show Tables**:
 
-   Once connected to the MySQL shell, use the following command to show all tables in the `psa` database:
+   Once connected to the MySQL shell, use the following command to show all tables in the `UPP` database:
 
    ```sql
-   USE psa;
+   USE UPP;
    SHOW TABLES;
    ```
 
